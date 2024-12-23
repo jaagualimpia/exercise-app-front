@@ -1,0 +1,9 @@
+services:
+  exercise_app:
+    container_name: exercise_app_front
+    image: exercise_app:latest
+    restart: always
+    environment:
+      - API_URL=fdjsfkajsfa;sfkals
+    ports:
+      - "3000:3000"

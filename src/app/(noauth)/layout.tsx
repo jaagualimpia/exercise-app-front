@@ -3,7 +3,7 @@ import {Montserrat } from "next/font/google";
 import "./globals.css";
 import { CollapsedNavBar } from "../components/collapsedSidebar";
 
-const montserrat = Montserrat({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"], display: 'swap' });
 
 export const metadata: Metadata = {
   title: "HipertrApp",

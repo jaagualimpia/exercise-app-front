@@ -13,7 +13,7 @@ export default function Page() {
             min-w-[250px]
             block
             py-5
-            px-3
+            px-3    
             ">
                 <h1 className="text-[2em] text-center font-semibold w-[100%]">HipertrApp</h1>
                 <form method="POST">
