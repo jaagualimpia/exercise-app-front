@@ -1,7 +1,14 @@
-import { NextResponse } from "next/server"
+import { NextResponse, type NextRequest} from "next/server"
 
-export async function GET() {
-    const apiUrl = process.env["API_URL"] + "exercise"
+export async function GET(req: NextRequest) {
+    const queryParams = req.nextUrl.searchParams
+    let endpoint = "exercise"
+    const records = queryParams.get("records")
+
+    if (records !== null) endpoint += `?records=${records}`
+
+    const apiUrl = process.env["API_URL"] + endpoint
+    
     let thing = await fetch(apiUrl, {method: "GET"})
     const data = await thing.json()
     return NextResponse.json(data)
@@ -9,7 +16,7 @@ export async function GET() {
 
 export async function POST(req: Request){
     const data = await req.json()
-    const apiUrl = process.env["API_URL"] + "exercise"
+    const apiUrl = process.env["API_URL"] + "exercise_test"
     
     const response = await fetch(apiUrl, {
         method: "POST",

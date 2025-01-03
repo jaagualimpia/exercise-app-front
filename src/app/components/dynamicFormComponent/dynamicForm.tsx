@@ -1,36 +1,46 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { DynamicFormRegistry } from "./internal-components/dynamic-form-registry"
-import { postExercisesRecord } from "@/app/services/exercise.service"
+import { getLastExercises, postExercisesRecord } from "@/app/services/exercise.service"
 
 
 export const DynamicForm = () => {
+    const [recentRecords, setRecentRecords] = useState<object[] | undefined>()
     const [counter, setCounter] = useState<number>(1)
-    const [registries, setRegistries] = useState([<DynamicFormRegistry registryId={counter} key={counter} />])
+    const [registries, setRegistries] = useState([<DynamicFormRegistry  recentRecords={recentRecords} registryId={counter} key={counter} />])
 
     let idForNewRegistry = counter
+
+    useEffect(() => {
+        const fetchRecentExercises = async () => {
+                const res = await getLastExercises(10);
+                setRecentRecords(res);
+        };
+        
+        fetchRecentExercises();
+    }, []);
 
     const handleAddButtonClick = () => {
         idForNewRegistry += 1
         setCounter(counter + 1)
-
-        setRegistries([...registries, <DynamicFormRegistry registryId={idForNewRegistry} key={idForNewRegistry} />])
+        console.log(recentRecords)
+        setRegistries([...registries, <DynamicFormRegistry  recentRecords={recentRecords} registryId={idForNewRegistry} key={idForNewRegistry} />])
     }
 
     const handleResetRegistriesButton = () => {
         idForNewRegistry += 1
 
         setCounter(counter + 1)
-        setRegistries([<DynamicFormRegistry registryId={idForNewRegistry} key={idForNewRegistry} />])
+        setRegistries([<DynamicFormRegistry  recentRecords={recentRecords} registryId={idForNewRegistry} key={idForNewRegistry} />])
     }
 
     const postData = async (formData: FormData) => {
         const registries: object[] = []
-        const keyNames = ["weight", "lowerBound", "upperBound", "exerciseName", "unit", "failure"]
+        const keyNames = ["weight", "lower_bound", "upper_bound", "name", "unit", "failure"]
         const commonData = {
-            "exerciseDay": (document.getElementsByName("exerciseDay")[0] as HTMLInputElement).value,
-            "date": (document.getElementsByName("exerciseDay")[0] as HTMLInputElement).value,
-            "weight": (document.getElementsByName("weight")[0] as HTMLInputElement).value
+            "exercise_day": (document.getElementsByName("exercise_day")[0] as HTMLInputElement).value,
+            "date": (document.getElementsByName("date")[0] as HTMLInputElement).value,
+            "personal_weight": (document.getElementsByName("weight")[0] as HTMLInputElement).value
         }
 
         for (let i = 1; i <= counter; i++) {
@@ -43,7 +53,7 @@ export const DynamicForm = () => {
             registries.push(Object.assign({}, commonData, newObj))
         }
 
-        const response = await postExercisesRecord(registries)
+        const response = await postExercisesRecord(registries )
         console.log(response.json())
     }
 
@@ -57,7 +67,7 @@ export const DynamicForm = () => {
                 <div id="dynamic-form-top-row-col-right">
                     <span className="flex gap-3 ml-auto">
                         <input type="date" className="bg-[#000000] text-[#9F9F9F]" name="date"/>
-                        <input type="text" placeholder="exercise day" className="bg-[#000000] w-28 placeholder-[#9F9F9F]" name="exerciseDay"/>
+                        <input type="text" placeholder="exercise day" className="bg-[#000000] w-28 placeholder-[#9F9F9F]" name="exercise_day"/>
                         <input type="text" placeholder="weight" className="me-4 bg-[#000000] placeholder-[#9F9F9F]" name="weight"/>
                     </span>
                 </div>
