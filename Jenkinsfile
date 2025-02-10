@@ -7,10 +7,14 @@ pipeline{
     stages{
         stage("Build"){
             steps{
+                
+                echo "${API_URL}"
+
                 nodejs("my-nodejs-environ") {
                     sh 'npm install'
                     sh 'npm run build'
                 }
+
             }
         }
         stage("Start"){
