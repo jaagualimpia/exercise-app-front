@@ -8,7 +8,7 @@ pipeline{
         stage("Build"){
             steps{
                 
-                echo "${API_URL}"
+                sh "env"
 
                 nodejs("my-nodejs-environ") {
                     sh 'npm install'
