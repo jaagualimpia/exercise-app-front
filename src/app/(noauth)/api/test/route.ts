@@ -6,5 +6,5 @@ export async function GET() {
     let thing = await fetch(apiUrl, {method: "GET"})
     const data = await thing.json()
     
-    return NextResponse.json(data)
+    return NextResponse.json({hola: "string"})
 }
