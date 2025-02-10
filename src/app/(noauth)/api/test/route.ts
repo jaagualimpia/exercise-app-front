@@ -5,5 +5,6 @@ export async function GET() {
     console.log(apiUrl)
     let thing = await fetch(apiUrl, {method: "GET"})
     const data = await thing.json()
+    
     return NextResponse.json(data)
 }

@@ -1,6 +1,9 @@
 pipeline{
     agent any
     tools {nodejs "my-nodejs-environ"}
+    environment {
+        API_URL = credentials('api-url')
+    }
     stages{
         stage("Build"){
             steps{
