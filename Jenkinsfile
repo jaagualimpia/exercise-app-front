@@ -10,7 +10,7 @@ pipeline{
                 echo "Verifying build number: ${env.BUILD_NUMBER}"  
 
                 bat "cd C:\\Users\\USUARIO\\Desktop\\proyectos\\Python\\aplicacion para entrenamiento\\exercise_app"
-                bat "docker build -t jenkins/exercise-api:${BUILD_NUMBER}"
+                bat "docker build -t jenkins/exercise-api:${BUILD_NUMBER} ."
             }
         }
         stage("Deploy"){
