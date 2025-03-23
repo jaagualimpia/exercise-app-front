@@ -7,9 +7,9 @@ pipeline {
         stage("Pull"){
             steps{
                 echo "Pulling github repository"  
-                sh "pwsh --version"
-                sh "pwsh pwd"
-                sh "pwsh ls"
+                pwsh "pwsh --version"
+                pwsh "pwd"
+                pwsh "ls"
             }
         }
     }
