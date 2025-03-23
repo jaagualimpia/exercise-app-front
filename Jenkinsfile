@@ -6,8 +6,7 @@ pipeline {
     stages{
         stage("Pull"){
             steps{
-                cd "cd C:\\Users\\USUARIO\\Desktop\\proyectos\\Python\\aplicacion para entrenamiento\\exercise_app"
-                ls || dir
+                bat "dir"
             }
         }
     }
