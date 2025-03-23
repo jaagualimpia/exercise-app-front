@@ -1,28 +1,21 @@
 pipeline{
     agent any
-    tools {nodejs "my-nodejs-environ"}
     environment {
         API_URL = credentials('api-url')
     }
     stages{
         stage("Build"){
             steps{
-                
-                sh "env"
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"  
+                echo "Verifying build number: ${env.BUILD_NUMBER}"  
 
-                nodejs("my-nodejs-environ") {
-                    sh 'npm install'
-                    sh 'npm run build'
-                }
-
+                sh "cd C:\Users\USUARIO\Desktop\proyectos\Python\aplicacion para entrenamiento\exercise_app"
+                sh "docker build -t jenkins/exercise-api:${BUILD_NUMBER}"
             }
         }
-        stage("Start"){
+        stage("Deploy"){
             steps{
-                nodejs("my-nodejs-environ") {
-                    sh 'npm start'
-                }
-                echo "App started successfully"
+                sh "echo 'Ha quedado listo'"
             }
         }
     }
