@@ -6,10 +6,8 @@ pipeline {
     stages{
         stage("Pull"){
             steps{
-                echo "Pulling github repository"  
-                pwsh "pwsh --version"
-                pwsh "pwd"
-                pwsh "ls"
+                cd "cd C:\\Users\\USUARIO\\Desktop\\proyectos\\Python\\aplicacion para entrenamiento\\exercise_app"
+                ls || dir
             }
         }
     }
