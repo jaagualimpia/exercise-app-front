@@ -7,6 +7,7 @@ pipeline {
         stage("Build"){
             steps{
                 bat "dir"
+                bat "whoami"
                 bat "docker ps"
                 bat "docker build -t jenkins/exercise-api:${BUILD_NUMBER} ."
 
